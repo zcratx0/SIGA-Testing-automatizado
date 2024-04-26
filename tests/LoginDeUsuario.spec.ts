@@ -18,14 +18,17 @@ test('BFM-61 : Acceso exitoso al sistema con datos válidos.', async ({page}) =>
 });
 
 
-test('FM-62 : Acceso al sistema con datos inválidos.', async ({page}) => {
+test('FM-62 : Acceso al sistema con datos inválidos.', async ({page}, testInfo) => {
   var user = "mario.godino"
   var pass = "contrasenia"
-
+  testInfo.annotations.push({type: 'testcase external_id', description: 'BFM-62'});
+  testInfo.annotations.push({type: 'notes', description: '1. Acceder a la pagina de login'});
   await page.goto('login')
 
+  testInfo.annotations.push({type: 'notes', description: `2. Ingresar los datos de usuario y contraseña ${user}, ${pass}`}); 
   await page.locator("#username").fill(user);
   await page.locator("#password").fill(pass);
+  testInfo.annotations.push({type: 'notes', description: '3. Hacer click en el boton de login'});
   await page.click('button[type="submit"]');
   
   await page.getByText('Credenciales invalidas!').click();
@@ -58,3 +61,4 @@ test('BFM-102 : Acceso de Usuario deshabilitado.', async ({page}) => {
 
   await page.getByText('Usuario deshabilitado!').click();
 });
+

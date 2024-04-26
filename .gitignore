@@ -9,3 +9,5 @@ playwright-report/
 
 # Otros
 *.code-workspace
+
+blob-report/
